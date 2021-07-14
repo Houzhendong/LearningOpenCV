@@ -11,41 +11,17 @@ void File()
 {
     string path = "Resources/test.png";
     Mat img = imread(path);
+    Mat imgGray;
+
+    cvtColor(img, imgGray, COLOR_BGR2GRAY);
+
     imshow("image", img);
+    imshow("imageGray", imgGray);
     waitKey(0);
-}
-
-// read video form file
-void Video()
-{
-    string path = "Resources/test_video.mp4";
-    VideoCapture cap(path);
-    Mat img;
-
-    while (true)
-    {
-        cap.read(img);
-        imshow("image", img);
-        waitKey(20);
-    }
-}
-
-// Webcam
-void Webcam()
-{
-    VideoCapture cap(0);
-    Mat img;
-
-    while (true)
-    {
-        cap.read(img);
-        imshow("image", img);
-        waitKey(20);
-    }
 }
 
 int main()
 {
-    Video();
+    File();
     return 0;
 }
