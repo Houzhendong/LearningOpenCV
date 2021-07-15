@@ -6,22 +6,31 @@
 using namespace cv;
 using namespace std;
 
-// read image from file
-void File()
+void BasicFunction()
 {
-    string path = "Resources/test.png";
+    string path = "Resources/Lenna.jpg";
     Mat img = imread(path);
-    Mat imgGray;
+    Mat imgGray, imgBlur, imgCanny, imgDil, imgErode;
 
     cvtColor(img, imgGray, COLOR_BGR2GRAY);
+    GaussianBlur(img, imgBlur, Size(7, 7), 5, 0);
+    Canny(img, imgCanny, 50, 150);
+
+    Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
+    dilate(imgCanny, imgDil, kernel);
+    erode(imgDil, imgErode, kernel);
 
     imshow("image", img);
     imshow("imageGray", imgGray);
+    imshow("imageBlur", imgBlur);
+    imshow("imageCanny", imgCanny);
+    imshow("image Dilation", imgDil);
+    imshow("image Erode", imgErode);
     waitKey(0);
 }
 
 int main()
 {
-    File();
+    BasicFunction();
     return 0;
 }
