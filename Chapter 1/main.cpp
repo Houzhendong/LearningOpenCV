@@ -44,6 +44,7 @@ void Webcam()
     }
 }
 
+//Read images,videos and webcams
 int main()
 {
     Webcam();

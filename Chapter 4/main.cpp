@@ -6,6 +6,7 @@
 using namespace cv;
 using namespace std;
 
+//Draw shapes and Text
 int main()
 {
     Mat img(512, 512, CV_8UC3, Scalar(0xda, 0xf5, 0xff));

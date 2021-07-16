@@ -6,28 +6,39 @@
 using namespace cv;
 using namespace std;
 
+//Color Detection
 int main()
 {
-    string path = "Resources/cards.jpg";
+    string resource = "D:/PersonalCode/Cpp/LearningOpenCV/Resources/";
+    string path = resource + "shapes.png";
     Mat img = imread(path);
+    Mat imgHSV, mask;
 
-    float w = 250, h = 350;
-    Mat matrix, imgWarp;
+    cvtColor(img, imgHSV, COLOR_BGR2HSV);
 
-    Point2f src[4] = {{529, 142}, {771, 190}, {405, 395}, {674, 457}};
-    Point2f dst[4] = {{0.0f, 0.0f}, {w, 0.0f}, {0.0f, h}, {w, h}};
+    int hmin = 0, smin = 0, vmin = 0,
+        hmax = 255, smax = 255, vmax = 255;
 
-    matrix = getPerspectiveTransform(src, dst);
-    warpPerspective(img, imgWarp, matrix, Point(w, h));
+    namedWindow("Trackbars", (640, 200));
+    createTrackbar("Hum Min", "Trackbars", &hmin, 179);
+    createTrackbar("Hun Max", "Trackbars", &hmax, 179);
+    createTrackbar("Sat Min", "Trackbars", &smin, 255);
+    createTrackbar("Sat Max", "Trackbars", &smax, 255);
+    createTrackbar("Val Min", "Trackbars", &vmin, 255);
+    createTrackbar("Val Max", "Trackbars", &vmax, 255);
 
-    for (auto p : src)
+    while (true)
     {
-        circle(img, p, 10, Scalar(0, 0, 0xff), FILLED);
+
+        Scalar lower(hmin, smin, vmin);
+        Scalar upper(hmax, smax, vmax);
+        inRange(imgHSV, lower, upper, mask);
+
+        imshow("Source", img);
+        imshow("HSV Image", imgHSV);
+        imshow("mask Image", mask);
+
+        waitKey(10);
     }
-
-    imshow("Source", img);
-    imshow("img Warp", imgWarp);
-
-    waitKey(0);
     return 0;
 }

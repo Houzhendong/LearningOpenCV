@@ -6,6 +6,7 @@
 using namespace cv;
 using namespace std;
 
+//Resize and Crop
 int main()
 {
     string path = "Resources/Lenna.jpg";

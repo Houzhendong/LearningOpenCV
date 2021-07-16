@@ -29,6 +29,7 @@ void BasicFunction()
     waitKey(0);
 }
 
+//Basic Function
 int main()
 {
     BasicFunction();
