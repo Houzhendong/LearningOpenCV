@@ -11,13 +11,12 @@ int main()
 {
     string resource = "D:/PersonalCode/Cpp/LearningOpenCV/Resources/";
     string path = resource + "shapes.png";
+    VideoCapture cap(0);
     Mat img = imread(path);
     Mat imgHSV, mask;
 
-    cvtColor(img, imgHSV, COLOR_BGR2HSV);
-
     int hmin = 0, smin = 0, vmin = 0,
-        hmax = 255, smax = 255, vmax = 255;
+        hmax = 179, smax = 255, vmax = 255;
 
     namedWindow("Trackbars", (640, 200));
     createTrackbar("Hum Min", "Trackbars", &hmin, 179);
@@ -29,14 +28,19 @@ int main()
 
     while (true)
     {
-
+        cap.read(img);
+        cvtColor(img, imgHSV, COLOR_BGR2HSV);
         Scalar lower(hmin, smin, vmin);
         Scalar upper(hmax, smax, vmax);
         inRange(imgHSV, lower, upper, mask);
 
         imshow("Source", img);
-        imshow("HSV Image", imgHSV);
+        // imshow("HSV Image", imgHSV);
         imshow("mask Image", mask);
+
+        cout << hmin << " " << hmax << " "
+             << smin << " " << smax << " "
+             << vmin << " " << vmax << endl;
 
         waitKey(10);
     }

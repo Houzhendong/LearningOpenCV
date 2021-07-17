@@ -53,7 +53,7 @@ void GetContours(Mat imgDila, Mat dst)
 //Shape Detection
 int main()
 {
-    string resource = "D:/PersonalCode/Cpp/LearningOpenCV/Resources/";
+    string resource = "D:/Code/Cpp/LearningOpenCV/Resources/";
     string path = resource + "shapes.png";
     Mat img = imread(path);
     Mat imgGray, imgBlur, imgCanny, imgDila;
